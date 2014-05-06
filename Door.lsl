@@ -1,6 +1,11 @@
-integer UP;
+// Cody Stebbins
+// MIT License
+// Contact mail@codystebbins.com for help!
+
 vector currentOffset = <0,0,0.2>;
-integer steps = 20;
+integer steps = 8;
+vector blue = <0.000, 0.455, 0.851>;
+float  opaque = 1.0;
 
 integer move(vector offset)
 {
@@ -16,21 +21,13 @@ integer move(vector offset)
 default
 {
     state_entry()
-    {
-        //llListen(99,"",llGetOwner(),"");
-        //UP = FALSE;
+    { 
+        llSetText("Door! Touch me to open!", blue, opaque);
     }
    
     on_rez(integer start_param)
     {
         llResetScript(); // Always start with a clean slate
-    }
-   
-   
-    listen(integer channel, string name, key id, string message)
-    {
-        // This is a panic abort.  If object takes off, type "/99  " and SHOUT it.  It'll return.
-       // llResetScript();
     }
 
     touch_start(integer total_number)
@@ -38,7 +35,4 @@ default
         currentOffset = currentOffset * -1; 
         move(currentOffset);
     }
-   
-
-
 }
