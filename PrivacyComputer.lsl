@@ -1,3 +1,7 @@
+// Cody Stebbins
+// MIT License
+// Contact mail@codystebbins.com for help!
+
 /*v### Scavenger Object Settings - Make Changes Below ###v*/
 string TOKEN_NAME = "Privacy"; //VSD Value (Pick valid value from VSD_LIST below if this is not a decoy)
 string TRIGGER_ID = "Privacy Token Dispenser"; //Object name - Make sure this matches with the trigger plate/button settings in scavenger_trigger_button.lsl or scavenger_trigger_plate.lsl, meaningful name preferred
@@ -41,13 +45,7 @@ string Dexor(string data, string xorKey)
      return llBase64ToString(llXorBase64(data, llStringToBase64(xorKey)));
 }
 
-// Cody Stebbins
-// MIT License
-// Contact mail@codystebbins.com for help!
-
 // General
-vector blue = <0.000, 0.455, 0.851>;
-float opaque = 1.0;
 key user; // UUID of current user
 
 // Trivia
@@ -85,21 +83,18 @@ default {
     
     on_rez(integer p) { llResetScript(); }
     
-    state_entry() {
-        // Hover text to help users understand that the object can be interacted with.
-        llSetText("Privacy Token Computer!", blue, opaque);
-        
+    state_entry() {        
     }
     
     touch_start(integer totalNumber) {   
         // Kill off current listeners
-        llListenRemove(gListener);
+        llListenRemove(gListener); 
         
         // Get user UUID & setup listener
         user = llDetectedKey(0);
         gListener = llListen(-99, "", user, "");
         
-        promptText("Welcome! In order to find the thing, I am giving you permission to look around this room for three hidden objects. Touching these objects will pose trivia questions about privacy. Answering these will give you the answer to this terminal, unlocking the thing. What is the three letter answer?'", "vsd");
+        promptText("Welcome! In order to recieve the token, I am giving you permission to look around this room for three hidden objects. Touching these objects will pose trivia questions about privacy. Answering these will give you the answer to this terminal. Read the privacy notes given for hints to the trivia. What is the three letter answer?'", "vsd");
     }
     
     listen(integer chan, string name, key id, string msg) {
